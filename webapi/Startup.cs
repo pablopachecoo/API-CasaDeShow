@@ -50,7 +50,6 @@ namespace webapi
             //
             app.UseSwagger();
             app.UseSwaggerUI(config => {config.SwaggerEndpoint("/swagger/api/swagger.json", "v1 docs");});
-            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

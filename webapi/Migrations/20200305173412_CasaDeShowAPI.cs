@@ -23,20 +23,6 @@ namespace webapi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usuarios",
-                columns: table => new
-                {
-                    UsuarioId = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(nullable: false),
-                    Senha = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuarios", x => x.UsuarioId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Eventos",
                 columns: table => new
                 {
@@ -61,44 +47,14 @@ namespace webapi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Ingressos",
-                columns: table => new
-                {
-                    IngressoKey = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    EventosId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ingressos", x => x.IngressoKey);
-                    table.ForeignKey(
-                        name: "FK_Ingressos_Eventos_EventosId",
-                        column: x => x.EventosId,
-                        principalTable: "Eventos",
-                        principalColumn: "EventoId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Eventos_CasaDeShowId",
                 table: "Eventos",
                 column: "CasaDeShowId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ingressos_EventosId",
-                table: "Ingressos",
-                column: "EventosId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Ingressos");
-
-            migrationBuilder.DropTable(
-                name: "Usuarios");
-
             migrationBuilder.DropTable(
                 name: "Eventos");
 

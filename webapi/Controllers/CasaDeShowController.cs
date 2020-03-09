@@ -15,7 +15,7 @@ using webapi.Models;
 
 
 namespace webapi.Controllers
-{
+{    
     [ApiController]
     [Route("api/[controller]")]
     public class CasaDeShowController : ControllerBase
@@ -32,11 +32,13 @@ namespace webapi.Controllers
 
         public IActionResult ListarCasas(){            
             var casas = database.CasasDeShow.ToList();
-            if (casas.Count.Equals(0))
+            if (casas == null)
             {
-                return NotFound("Não existe nenhuma casa de Show cadastrada"); /*Erro 404*/
+                return BadRequest("Não existe nenhuma casa de Show cadastrada"); /*Erro 400*/
             }            
-            return Ok(casas);            
+            return Ok(casas);
+
+            
         }
 
         [HttpGet("{id:int}")]
@@ -95,17 +97,19 @@ namespace webapi.Controllers
             if (casaNome == null)
             {
                 return NotFound("Uma casa de Show com o nome |" + NomeDaCasa + "| Não existe"); /*Trata a exceção de um Nome não imputado, Retornando um Not Found (ERRO 404)*/
-            }            
+            }
+            
             return Ok(casaNome);
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] CasaDeShowTemp casaTemp){
-
+            
             if (casaTemp.NomeDaCasa.Equals(null) || casaTemp.Endereco.Equals(null))
             {
                 return BadRequest("Preencha todos os campos corretamente");                
             }
+            
             else {
                 CasaDeShow casa = new CasaDeShow();
                 casa.NomeDaCasa = casaTemp.NomeDaCasa;
@@ -160,6 +164,7 @@ namespace webapi.Controllers
                 return StatusCode(500, "ERRO 500, não tem como editar por que não existe uma casa de show com esse id");
             }
             return Ok("A Casa De Show com o id |" +  casa.CasaDeShowId + "| Foi Editado");
+                
         }
 
         public class CasaDeShowTemp{

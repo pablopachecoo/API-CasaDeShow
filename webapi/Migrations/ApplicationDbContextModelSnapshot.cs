@@ -68,55 +68,11 @@ namespace webapi.Migrations
                     b.ToTable("Eventos");
                 });
 
-            modelBuilder.Entity("webapi.Models.Ingresso", b =>
-                {
-                    b.Property<int>("IngressoKey")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("EventosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IngressoKey");
-
-                    b.HasIndex("EventosId");
-
-                    b.ToTable("Ingressos");
-                });
-
-            modelBuilder.Entity("webapi.Models.Usuario", b =>
-                {
-                    b.Property<int>("UsuarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("UsuarioId");
-
-                    b.ToTable("Usuarios");
-                });
-
             modelBuilder.Entity("webapi.Models.Eventos", b =>
                 {
                     b.HasOne("webapi.Models.CasaDeShow", "CasasDeShow")
                         .WithMany()
                         .HasForeignKey("CasaDeShowId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("webapi.Models.Ingresso", b =>
-                {
-                    b.HasOne("webapi.Models.Eventos", "Eventos")
-                        .WithMany()
-                        .HasForeignKey("EventosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -10,8 +10,6 @@ namespace webapi.Data
     {
         public DbSet<CasaDeShow> CasasDeShow {get;set;}
         public DbSet<Eventos> Eventos {get;set;}
-        public DbSet<Usuario> Usuarios {get;set;}
-        public DbSet<Ingresso> Ingressos {get;set;}
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base (options)
         {
 
